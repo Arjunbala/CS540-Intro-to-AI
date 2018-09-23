@@ -1,3 +1,4 @@
+
 ///////////////////////////////////////////////////////////////////////////////
 // Title:            Klotski Puzzle
 // Files:            Klotski.java AStarSearch.java GameState.java
@@ -82,8 +83,8 @@ public class GameState {
 	}
 
 	/**
-	 * Returns the parent GameState for this GameState.
-	 * @return, GameState object corresponding to the parent.
+	 * Returns the parent GameState for this GameState. @return, GameState
+	 * object corresponding to the parent.
 	 */
 	public GameState getParent() {
 		return this.parent;
@@ -101,10 +102,9 @@ public class GameState {
 	}
 
 	/**
-	 * Returns whether the GameState is a goal state or not. 
-	 * @return, boolean
-	 * 			true, if the GameState is a goal state. 
-	 * 			false, if the GameState is not a goal state.
+	 * Returns whether the GameState is a goal state or not. @return, boolean
+	 * true, if the GameState is a goal state. false, if the GameState is not a
+	 * goal state.
 	 */
 	public boolean goalCheck() {
 		// check whether the current state is the goal
@@ -122,16 +122,16 @@ public class GameState {
 	}
 
 	/**
-	 * Returns the number of steps from initial state to this GameState.
-	 * @return, integer corresponding to number of steps.
+	 * Returns the number of steps from initial state to this
+	 * GameState. @return, integer corresponding to number of steps.
 	 */
 	public int getSteps() {
 		return this.steps;
 	}
 
 	/**
-	 * Returns the cost (steps + heuristic value) of this GameState.
-	 * @return, integer corresponding to cost.
+	 * Returns the cost (steps + heuristic value) of this GameState. @return,
+	 * integer corresponding to cost.
 	 */
 	public int getCost() {
 		return this.cost;

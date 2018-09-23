@@ -1,3 +1,4 @@
+
 ///////////////////////////////////////////////////////////////////////////////
 // Title:            Klotski Puzzle
 // Files:            Klotski.java AStarSearch.java GameState.java
@@ -24,6 +25,7 @@ public class AStarSearch {
 
 	/**
 	 * Implementation of A* search
+	 * 
 	 * @param flag, integer indicating mode of operation.
 	 * @param state, GameState which provides the initial board setup.
 	 */
@@ -70,7 +72,8 @@ public class AStarSearch {
 			for (int i = 0; i < successors.size(); i++) {
 				GameState successor = successors.get(i);
 				boolean alreadyPresent = false;
-				// Traverse open set to check if the same node ID is already there
+				// Traverse open set to check if the same node ID is already
+				// there
 				Iterator<GameState> openSetIterator = openSet.iterator();
 				while (openSetIterator.hasNext()) {
 					GameState g = openSetIterator.next();
@@ -123,9 +126,10 @@ public class AStarSearch {
 			System.out.println("steps " + steps);
 		}
 	}
-	
+
 	/**
 	 * Print the nodes in OPEN list.
+	 * 
 	 * @param flag, indicating mode of operation.
 	 */
 	private void printOpenList(int flag) {
@@ -140,6 +144,7 @@ public class AStarSearch {
 
 	/**
 	 * Print the nodes in CLOSED list.
+	 * 
 	 * @param flag, indicating mode of operation.
 	 */
 	private void printClosedList(int flag) {
