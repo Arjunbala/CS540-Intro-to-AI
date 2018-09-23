@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////////
+// Title:            Klotski Puzzle
+// Files:            Klotski.java AStarSearch.java GameState.java
+// Semester:         CS 540 Fall 2018
+//
+// Author:           Arjun Balasubramanian
+// Email:            balarjun@cs.wisc.edu
+// CS Login:         balarjun
+// Lecturer's Name:  Professor Jerry Zhu
+//////////////////////////// 80 columns wide //////////////////////////////////
 import java.util.*;
 
 public class Klotski {
