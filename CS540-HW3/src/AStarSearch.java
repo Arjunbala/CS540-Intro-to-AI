@@ -11,17 +11,18 @@
 //////////////////////////// 80 columns wide //////////////////////////////////
 
 import java.util.Comparator;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Set;
 import java.util.Stack;
 
 public class AStarSearch {
 	private Queue<GameState> openSet;
-	private Set<GameState> closedSet;
+	private HashMap<String, GameState> closedSet;
+	private HashMap<String, GameState> openSetHash;
 
 	/**
 	 * Implementation of A* search
@@ -32,7 +33,8 @@ public class AStarSearch {
 	public void aStarSearch(int flag, GameState state) {
 		// feel free to using other data structures if necessary
 		openSet = new PriorityQueue<>(stateComparator);
-		closedSet = new HashSet<>();
+		closedSet = new HashMap<>();
+		openSetHash = new HashMap<>();
 		int goalCheck = 0;
 		int maxOPEN = -1;
 		int maxCLOSED = -1;
@@ -40,12 +42,14 @@ public class AStarSearch {
 
 		// Place the start state into open
 		openSet.add(state);
+		openSetHash.put(state.getStateID(), state);
 		int iteration = 0;
 		while (!openSet.isEmpty()) {
 			iteration++;
 			GameState node = openSet.remove();
+			openSetHash.remove(node.getStateID());
 			// Now place this on closed.
-			closedSet.add(node);
+			closedSet.put(node.getStateID(), node);
 
 			// Print information.
 			if (flag == 200 || flag == 400) {
@@ -72,40 +76,38 @@ public class AStarSearch {
 			for (int i = 0; i < successors.size(); i++) {
 				GameState successor = successors.get(i);
 				boolean alreadyPresent = false;
+
 				// Traverse open set to check if the same node ID is already
 				// there
-				Iterator<GameState> openSetIterator = openSet.iterator();
-				while (openSetIterator.hasNext()) {
-					GameState g = openSetIterator.next();
-					if (g.getStateID().equals(successor.getStateID())) {
-						// Check if this successor is more optimal
-						if (successor.getSteps() < g.getSteps()) {
-							openSet.remove(g);
-							openSet.add(successor);
-						}
-						alreadyPresent = true;
-						break;
+				if (openSetHash.containsKey(successor.getStateID())) {
+					// Check if this successor is more optimal
+					GameState g = openSetHash.get(successor.getStateID());
+					if (successor.getSteps() < g.getSteps()) {
+						openSet.remove(g);
+						openSet.add(successor);
+						openSetHash.put(g.getStateID(), g); // Old value is
+															// replaced
 					}
+					alreadyPresent = true;
 				}
 
 				// Traverse closed set to check if the same node ID is already
 				// there
-				Iterator<GameState> closedSetIterator = closedSet.iterator();
-				while (closedSetIterator.hasNext()) {
-					GameState g = closedSetIterator.next();
-					if (g.getStateID().equals(successor.getStateID())) {
-						if (successor.getCost() < g.getCost()) {
-							// Remove from closed set and move into open set
-							closedSet.remove(g);
-							openSet.add(successor);
-						}
-						alreadyPresent = true;
+				if (closedSet.containsKey(successor.getStateID())) {
+					GameState g = closedSet.get(successor.getStateID());
+					if (successor.getSteps() < g.getSteps()) {
+						// Remove from closed set and move into open set
+						closedSet.remove(g.getStateID());
+						openSet.add(successor);
+						openSetHash.put(successor.getStateID(), successor);
 					}
+					alreadyPresent = true;
 				}
 
 				// If not already in open or closed, add into open
 				if (!alreadyPresent) {
 					openSet.add(successor);
+					openSetHash.put(successor.getStateID(), successor);
 				}
 			}
 			// Print information
@@ -150,9 +152,11 @@ public class AStarSearch {
 	private void printClosedList(int flag) {
 		if (flag == 200 || flag == 400) {
 			System.out.println("CLOSED");
-			Iterator<GameState> closedList = closedSet.iterator();
+			Iterator<Map.Entry<String, GameState>> closedList = closedSet
+					.entrySet().iterator();
 			while (closedList.hasNext()) {
-				printNodeInformation(closedList.next());
+				Map.Entry<String, GameState> m = closedList.next();
+				printNodeInformation(m.getValue());
 			}
 		}
 	}
