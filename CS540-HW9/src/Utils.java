@@ -15,32 +15,10 @@ public class Utils {
 		BufferedReader br = null;
 		ArrayList<IceData> iceDataList = new ArrayList<IceData>();
 		int year = 1855;
-		try {
-			br = new BufferedReader(new FileReader("ice_data.txt"));
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-			System.exit(0);
-		}
-		String line;
-		try {
-			while ((line = br.readLine()) != null) {
-				try {
-					int ice = Integer.parseInt(line);
-					iceDataList.add(new IceData(normalize(year, mean, standardDeviation, normalize),ice));
-					year++;
-				} catch (NumberFormatException e) {
-					// do nothing. Just continue.
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(0);
-		}
-		try {
-			br.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(0);
+		while(RawIceData.hasNext()) {
+			int ice = RawIceData.getNext();
+			iceDataList.add(new IceData(normalize(year, mean, standardDeviation, normalize),ice));
+			year++;
 		}
 		return iceDataList;
 	}

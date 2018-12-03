@@ -92,7 +92,7 @@ public class Ice {
 		for (int i = 0; i < iceList.size(); i++) {
 			IceData item = iceList.get(i);
 			System.out
-					.println(item.getYear() + " " + item.getNumberOfDaysIce());
+					.println((int)item.getYear() + " " + item.getNumberOfDaysIce());
 		}
 	}
 
@@ -145,7 +145,8 @@ public class Ice {
 				iceList, 0.0, 0.0);
 		Parameters p = parameterized_stats.getClosedFormSolution();
 		System.out.println(String.format("%.2f", p.getFirstParameter()) + " "
-				+ String.format("%.2f", p.getSecondParameter()));
+				+ String.format("%.2f", p.getSecondParameter()) + " "
+				+ String.format("%.2f", parameterized_stats.getMSE()));
 	}
 	
 	private static void handleFlag700(int year) {
